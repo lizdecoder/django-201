@@ -1,8 +1,12 @@
 {% extends "base.html" %}
+
+{% block title %}Sign In{% endblock %}
+
 {% block body %}
+  
     {% if messages %}
-    <div>
-      <strong>Messages:</strong>
+    <div class="mb-3">
+      <strong class="text-indigo-500 text-lg">Messages:</strong>
       <ul>
         {% for message in messages %}
         <li>{{message}}</li>
@@ -11,5 +15,8 @@
     </div>
     {% endif %}
 
-    {% block content %}{% endblock %}
+    {% include "includes/login.html" %}
+
+ 
+
 {% endblock %}
