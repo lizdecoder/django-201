@@ -1,0 +1,25 @@
+{% block content %}
+
+<h1 class="text-indigo-500 text-lg font-semibold">Sign In</h1>
+
+<p class="mb-2">If you have not created an account yet, then please
+<a href="{{ signup_url }}" class="text-indigo-500 underline">sign up</a> first.</p>
+
+<form class="login " method="POST" action="{% url 'account_login' %}">
+  {% csrf_token %}
+  <p class="bg-gray-50 border border-gray-300 text-grey-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-4/6 pl-5 p-2.5 my-2">
+    <span class="text-indigo-500 pr-2"><i class='bx bx-envelope text-xl align-middle'></i></span>
+    {{ form.login}} 
+  </p>
+  <p class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-4/6 pl-5 p-2.5 my-3">
+    <span class="text-indigo-500 pr-2"><i class='bx bx-lock text-xl align-middle'></i></span>
+    {{ form.password}}
+  </p>
+  {% if redirect_field_value %}
+    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+  {% endif %}
+    <a class="button secondaryAction inline-block uppercase mx-auto shadow bg-indigo-800 hover:bg-indigo-700 focus:shadow-outline focus:outline-none text-white text-xs py-3 px-10 rounded"" href="{% url 'account_reset_password' %}">Forgot Password?</a>
+    <button class="primaryAction inline-block uppercase mx-auto shadow bg-indigo-800 hover:bg-indigo-700 focus:shadow-outline focus:outline-none text-white text-xs py-3 px-10 rounded"" type="submit">Sign In</button>
+</form>
+
+{% endblock %}
