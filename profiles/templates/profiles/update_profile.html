@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Update Profile{% endblock title %}
+
+{% block body %}
+	<h1 class="text-lg font-bold pb-5">Update Profile Information</h1>
+	<form method="POST" action="" enctype="multipart/form-data">
+		{% csrf_token %}
+		<p>First Name: {{ form.first_name }}</p>
+		<p>Last Name: {{ user_form.last_name }}</p> 
+		<p>Username: {{ user_form.username }}</p>
+		<a href="{% url 'profiles:password_change' %}" class="text-indigo-700 text-md py-3 underline">Change Password</a>
+		<p>Change Image: {{ form.image }}</p>
+		<div>
+			<button class="primaryAction inline-block uppercase mx-auto shadow bg-indigo-800 hover:bg-indigo-700 focus:shadow-outline focus:outline-none text-white text-xs py-3 px-10 rounded" type="submit">Save Changes</button>
+			<button class="primaryAction inline-block uppercase mx-auto shadow bg-indigo-800 hover:bg-indigo-700 focus:shadow-outline focus:outline-none text-white text-xs py-3 px-10 rounded" type="rest">Reset</button>
+		</div>
+	</form>
+{% endblock %}
