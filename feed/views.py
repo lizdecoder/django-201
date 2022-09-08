@@ -2,8 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.views.generic import TemplateView, DetailView
 from django.views.generic.edit import CreateView
-from django.contrib.messages.views import SuccessMessageMixin
-from django.contrib.auth.views import PasswordChangeView
+
 
 from followers.models import Follower
 from .models import Post
@@ -68,9 +67,3 @@ class CreateNewPost(LoginRequiredMixin, CreateView):
             },
             content_type = "application/html"
         )
-
-class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
-    template_name = "profiles/change_password.html"
-    success_message = "Successfully Changed Your Password"
-    # TODO: how do I get the successful message to appear?
-    success_url = "/"
