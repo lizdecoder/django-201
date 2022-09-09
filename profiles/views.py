@@ -3,6 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.http import JsonResponse, HttpResponseBadRequest
 from django.views.generic import DetailView, View
+from django.views.generic.edit import UpdateView
 
 from feed.models import Post
 from followers.models import Follower
@@ -66,15 +67,16 @@ class FollowView(LoginRequiredMixin, View):
 			'wording': "Unfollow" if data['action'] == 'follow' else "Follow"
 		})
 
-
-class UserView(DetailView):
-	http_method_names = ['get']
-	template_name = 'profiles/userprofile.html'
+class UserUpdateView(UpdateView):
 	model = User
-	context_object_name = "user"
-	slug_field = "username"
-	slug_url_kwarg = "username"
+	fields = ['username', 'first_name', 'last_name']
+	template_name = 'profiles/updateprofile_form.html'
+	success_url = '/'
 
-	def get_context_data(self, **kwargs):
-		user = self.get_object()
-		context = super().get_context_data(**kwargs)
+	def get_object(self, queryset=None):
+		self.object = User.objects.get(username=self.request.user.username)
+		return self.request.user
+	
+	def form_valid(self, form):
+		self.object = form.save()
+		return super().form_valid(form)
