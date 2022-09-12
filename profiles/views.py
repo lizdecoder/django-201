@@ -1,19 +1,15 @@
 from http.client import HTTPResponse
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.http import JsonResponse, HttpResponseBadRequest
-from django.views.generic import DetailView, View, FormView
-from django.views.generic.edit import UpdateView
+from django.shortcuts import render
+from django.views.generic import DetailView, View
 
+from .forms import UpdateImageForm, UserForm
 from feed.models import Post
 from followers.models import Follower
 from profiles.models import Profile
-
-from django.shortcuts import render, redirect
-from django.urls import reverse
-from .forms import UpdateImageForm, UserForm
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 
 class ProfileDetailView(DetailView):
 	http_method_names = ['get']
@@ -73,20 +69,6 @@ class FollowView(LoginRequiredMixin, View):
 			'success': True,
 			'wording': "Unfollow" if data['action'] == 'follow' else "Follow"
 		})
-
-# class UserUpdateView(UpdateView):
-# 	model = User
-# 	fields = ['username', 'first_name', 'last_name']
-# 	template_name = 'profiles/updateprofile_form.html'
-# 	success_url = '/'
-
-# 	def get_object(self, queryset=None):
-# 		self.object = User.objects.get(username=self.request.user.username)
-# 		return self.request.user
-	
-# 	def form_valid(self, form):
-# 		self.object = form.save()
-# 		return super().form_valid(form)
 
 @login_required
 def update_user(request, username):
