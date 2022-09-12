@@ -47,12 +47,9 @@
 	</div>
 	<div class="flex justify-center pb-4">
 		{% if request.user == user %}
-			<a class="text-indigo-700 underline" href="{% url 'profiles:update' user.pk %}">Update Your Profile</a>
+			<a class="text-indigo-700 underline" href="{% url 'profiles:update' user.username%}">Update Your Profile</a>
 		{% endif %}	
 	</div>
 </div>
-
-
-
 
 {% endblock %}
