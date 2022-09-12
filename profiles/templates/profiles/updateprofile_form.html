@@ -1,14 +1,16 @@
 {% extends "base.html" %}
 
 {% block body %}
-<h1>Profile Update Page</h1>
-    <form method="post">
+<h1 class="text-lg text-indigo-700">Profile Update Page</h1>
+    <form method="POST" action="" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ update_user_form.as_p }}
+        <img src="{{ update_image_form.instance.image.url  }}" width="200px">
+        {{ update_image_form.as_p }}
+        
         <div>Password:
             <a class="text-indigo-700 underline" href="{% url 'account_change_password' %}">Change Password</a>
         </div>
-        
         <input type="submit" value="Save">
         <input type="reset" value="Reset">
     </form>
